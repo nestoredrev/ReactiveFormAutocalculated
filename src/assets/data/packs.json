@@ -1,0 +1,32 @@
+{
+	"pack1" : {
+		"id": "viernes",
+		"nombre":"Viernes",  
+		"packs": [
+		{"id": "rotario", "packNombre": "Rotario", "precio": 185},
+		{"id": "rotario_rotario","packNombre": "Rotario + Rotario","precio": 260},
+		{"id": "rotario_acompanante","packNombre": "Rotario + Acompañante","precio": 250},
+		{"id": "rotaract_rotaract","packNombre": "Rotaract + Rotaract","precio": 220}
+		]
+	},
+	"pack2" : {
+		"id": "sabado",
+		"nombre":"Sábado",  
+		"packs": [
+		{"id": "rotario", "packNombre": "Rotario", "precio": 260},
+		{"id": "rotario_rotario","packNombre": "Rotario + Rotario","precio": 420},
+		{"id": "rotario_acompanante","packNombre": "Rotario + Acompañante","precio": 400},
+		{"id": "rotaract_rotaract","packNombre": "Rotaract + Rotaract","precio": 370}
+	  ]
+	},
+	"pack3" : {
+		"id": "completo",
+		"nombre":"Completo",  
+		"packs": [
+		{"id": "rotario", "packNombre": "Rotario", "precio": 425},
+		{"id": "rotario_rotario","packNombre": "Rotario + Rotario","precio": 650},
+		{"id": "rotario_acompanante","packNombre": "Rotario + Acompañante","precio": 640},
+		{"id": "rotaract_rotaract","packNombre": "Rotaract + Rotaract","precio": 590}
+	  ]
+	}
+  }

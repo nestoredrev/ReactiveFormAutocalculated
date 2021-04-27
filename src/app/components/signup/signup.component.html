@@ -1,0 +1,327 @@
+<div class="row">
+  <!-- Tabla de precios -->
+  <div class="col-md-4 mb-2">
+    <p>Al seleccionar los packs y las actividades se realizara el calculo del precio final de la inscripción.</p>
+    <hr>
+    <img  class="img-thumbnail" src="assets/img/tabla-precios.png" alt="precios">
+  </div>
+
+  <!-- Formulario -->
+  <div class="col-md-8">
+    <mat-toolbar color="primary">
+      <span>Formulario de registro</span>
+    </mat-toolbar>
+
+    <form [formGroup]="formSignUp" (ngSubmit)="onSubmit()" class="example-form" novalidate>
+      
+      <!-- Nombre completo -->
+      
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Nombre completo</mat-label>
+        <input matInput 
+              type="text"
+              formControlName="nombreCompleto">
+              <mat-icon *ngIf="formSignUp.get('nombreCompleto').valid && formSignUp.get('nombreCompleto').touched" matSuffix>sentiment_very_satisfied</mat-icon>
+              <mat-icon *ngIf="formSignUp.get('nombreCompleto').invalid && formSignUp.get('nombreCompleto').touched" matSuffix>sentiment_very_dissatisfied</mat-icon>
+              <mat-error *ngIf="formSignUp.get('nombreCompleto').hasError('required') && formSignUp.get('nombreCompleto').touched">
+                El campo es <strong>obligatorio</strong>
+              </mat-error>
+      </mat-form-field>
+
+
+
+
+      <!-- Nombre correo electronico -->
+
+      <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Correo eléctronico</mat-label>
+          <input matInput 
+                type="mail"
+                formControlName="correo">
+                <mat-icon *ngIf="formSignUp.get('correo').valid && formSignUp.get('correo').touched" matSuffix>sentiment_very_satisfied</mat-icon>
+                <mat-icon *ngIf="formSignUp.get('correo').invalid && formSignUp.get('correo').touched" matSuffix>sentiment_very_dissatisfied</mat-icon>
+                <mat-error *ngIf="formSignUp.get('correo').hasError('required') && formSignUp.get('correo').touched">
+                  El campo es <strong>obligatorio</strong>
+                </mat-error>
+                <mat-error *ngIf="formSignUp.get('correo').hasError('pattern') && formSignUp.get('correo').touched">
+                  El correo electronico es <strong>invalido</strong>
+                </mat-error>
+        </mat-form-field>
+
+
+
+      <!-- Telefono -->
+      
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Télefono</mat-label>
+        <span matPrefix>+34 &nbsp;</span>
+        <input matInput 
+              type="tel"
+              maxlength="9"
+              formControlName="telefono">
+              <mat-icon *ngIf="formSignUp.get('telefono').valid && formSignUp.get('telefono').touched" matSuffix>sentiment_very_satisfied</mat-icon>
+              <mat-icon *ngIf="formSignUp.get('telefono').invalid && formSignUp.get('telefono').touched" matSuffix>sentiment_very_dissatisfied</mat-icon>
+              <mat-error *ngIf="formSignUp.get('telefono').hasError('required') && formSignUp.get('telefono').touched">
+                El campo es <strong>obligatorio</strong>
+              </mat-error>
+              <mat-error *ngIf="formSignUp.get('telefono').hasError('pattern') && formSignUp.get('telefono').touched">
+                El telefono no puede contener caracteres y menos de 9 digitos
+              </mat-error>
+      </mat-form-field>
+
+
+
+      <!-- Nombre del club -->
+      
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Nombre del club</mat-label>
+        <input matInput 
+              type="text"
+              formControlName="nombreClub">
+              <mat-icon *ngIf="formSignUp.get('nombreClub').valid && formSignUp.get('nombreClub').touched" matSuffix>sentiment_very_satisfied</mat-icon>
+              <mat-icon *ngIf="formSignUp.get('nombreClub').invalid && formSignUp.get('nombreClub').touched" matSuffix>sentiment_very_dissatisfied</mat-icon>
+              <mat-error *ngIf="formSignUp.get('nombreClub').hasError('required') && formSignUp.get('nombreClub').touched">
+                El campo es <strong>obligatorio</strong>
+              </mat-error>
+      </mat-form-field>
+
+
+
+        <!-- Alojamiento -->
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Desea alojamiento?</mat-label>
+          <mat-select name="alojamiento" 
+                      id="alojamiento"
+                      formControlName="alojamiento">
+            <mat-option value="si">
+              Sí, deseo alojamiento
+            </mat-option>
+            <mat-option value="no">
+              No, deseo alojamiento
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+
+        <!-- Tipo de reserva -->
+
+        <mat-radio-group aria-label="Select an option"
+                        formControlName="tipoReserva">
+
+          <mat-radio-button value="individual">Reserva individual</mat-radio-button>
+          <br>
+          <mat-hint>(Una persona sola o con acompañante)</mat-hint>
+
+          <div class="row">
+            
+            <div class="col">
+              <mat-radio-button value="multiple">Reserva por parte del Club</mat-radio-button>
+              <br>
+              <mat-hint>En caso de varios miembros, indique el numero</mat-hint>
+            </div>
+
+            <div class="col" *ngIf="formSignUp.get('tipoReserva').value === 'multiple'" >
+              <mat-form-field class="example-full-width">
+                <mat-label>Numero miembros</mat-label>
+                <input matInput 
+                      type="number"
+                      formControlName="numeroMiembros">
+              </mat-form-field>
+            </div>
+          
+          </div>
+        </mat-radio-group>
+
+
+
+        <!-- Actividades y Paquetes -->
+
+        <div *ngIf="formSignUp.get('alojamiento').value === 'si'" class="row mt-1">
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <mat-label>Paquetes</mat-label>
+              <mat-select name="packetes" 
+                          id="packetes"
+                          formControlName="paquete">
+                <mat-option *ngFor="let pack of packetes; let i = index" [value]="pack.valor">
+                  {{ pack.nombre }}                
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <mat-label>Acompañantes</mat-label>
+              <mat-select name="acopaniantes" 
+                          id="acopaniantes"
+                          formControlName="tipoAcompanante">
+                <mat-option *ngFor="let acompanante of acopaniantes" [value]="acompanante.valor">
+                  {{ acompanante.nombre }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="selectedAcompanante != 'rotario'"  formGroupName="acompanante">
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <mat-label>Nombre completo</mat-label>
+              <input matInput 
+                    type="text"
+                    formControlName="nombre">
+                    <mat-error *ngIf="formSignUp.get('acompanante.nombre').hasError('required') && formSignUp.get('acompanante.nombre').touched">
+                      El campo es <strong>obligatorio</strong>
+                    </mat-error>
+            </mat-form-field>
+
+          </div>
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <mat-label>Télefono</mat-label>
+              <input matInput 
+                    type="tel"
+                    maxlength="9"
+                    formControlName="telefono">
+                    <mat-error *ngIf="formSignUp.get('acompanante.telefono').hasError('required') && formSignUp.get('acompanante.telefono').touched">
+                      El campo es <strong>obligatorio</strong>
+                    </mat-error>
+                    <mat-error *ngIf="formSignUp.get('acompanante.telefono').hasError('pattern') && formSignUp.get('acompanante.telefono').touched">
+                      El telefono no puede contener caracteres y menos de 9 digitos
+                    </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- https://www.youtube.com/watch?v=KTt-X0Q4LPU Tutorial de checkboxs -->
+        <div *ngIf="formSignUp.get('alojamiento').value === 'si'" formArrayName="actividades">
+          <div class="row" *ngFor="let actividad of actividades.controls; let i = index;">
+            <div class="col" *ngIf="i == 0 || i == 4">
+              
+              <mat-checkbox (change)="getSelectedActividadesValues()" id="actividadCheckbox{{i}}" [formControlName]="i">{{actividadesData[i].nombre}}</mat-checkbox>
+              
+            </div>
+          </div>
+          <mat-error *ngIf="actividadesError">
+            Debe seleccionar al menos una actividad
+          </mat-error>
+        </div>
+
+        <div *ngIf="formSignUp.get('alojamiento').value === 'no'" formArrayName="actividades">
+          <div class="row" *ngFor="let actividad of actividades.controls; let i = index;">
+            <div class="col">
+              
+              <mat-checkbox (change)="getSelectedActividadesValues()" id="actividadCheckbox{{i}}" [formControlName]="i">{{actividadesData[i].nombre}}</mat-checkbox>
+              
+            </div>
+          </div>
+          <mat-error *ngIf="actividadesError">
+            Debe seleccionar al menos una actividad
+          </mat-error>
+        </div>
+
+
+
+        <!-- Observaciones -->
+
+        <mat-form-field class="example-full-width mt-2 mb-2" appearance="outline">
+          <mat-label>Observaciones</mat-label>
+          <textarea matInput
+                    cdkTextareaAutosize
+                    #autosize="cdkTextareaAutosize"
+                    cdkAutosizeMinRows="10"
+                    cdkAutosizeMaxRows="30"
+                    maxlength="256"
+                    formControlName="observaciones">
+          </textarea>
+          <mat-hint align="start"><strong>Caracteres utilizados</strong> </mat-hint>
+          <mat-hint align="end">{{formSignUp.get('observaciones').value?.length || 0}} / 256</mat-hint>
+          <mat-error *ngIf="formSignUp.get('observaciones').hasError('required') && formSignUp.get('observaciones').touched">
+            El campo es <strong>obligatorio</strong>
+          </mat-error>
+          <mat-error *ngIf="formSignUp.get('observaciones').hasError('maxlength') && formSignUp.get('observaciones').touched">
+            Exceso de caracteres
+          </mat-error>
+        </mat-form-field>
+
+
+
+
+        <!-- Contraseña -->
+
+        <mat-form-field class="example-full-width mb-2" appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput 
+                 [type]="hide ? 'password' : 'text'"
+                 formControlName="pass"
+                 minlength="5">
+          <mat-hint>* Minimo 5 caractes</mat-hint>
+          <button mat-icon-button matSuffix (click)="hide = !hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="formSignUp.get('pass').hasError('required') && formSignUp.get('pass').touched">
+            El campo es <strong>obligatorio</strong>
+          </mat-error>
+          <mat-error *ngIf="formSignUp.get('pass').hasError('minlength') && formSignUp.get('pass').touched">
+            Minimo 5 caracteres
+          </mat-error>
+        </mat-form-field>
+
+
+
+        <!-- Repetir contraseña -->
+
+        <mat-form-field class="example-full-width mb-2" appearance="outline">
+          <mat-label>Repetir contraseña</mat-label>
+          <input matInput 
+                 [type]="hideR ? 'password' : 'text'"
+                 formControlName="passRepeat">
+          <button mat-icon-button matSuffix (click)="hideR = !hideR">
+            <mat-icon>{{hideR ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="formSignUp.get('passRepeat').hasError('noEsIgual') && formSignUp.get('passRepeat').touched">
+            Las contraseñas no coinciden
+          </mat-error>
+        </mat-form-field>
+
+
+
+        <!-- Condiciones -->
+
+        <div class="row mb-2">
+          <div class="col">
+            <mat-checkbox id="condiciones" formControlName="condiciones">He léido y acepto la <a href="https://www.google.es/" target="_blank">política de privacidad</a> </mat-checkbox>
+            <mat-error *ngIf="formSignUp.get('condiciones').hasError('required') && formSignUp.get('condiciones').touched">
+              Hay que aceptar las condiciones de privacidad
+            </mat-error>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col">
+            <mat-card class="precioTotal">Total: {{ precioTotal | currency:'EUR':'symbol' }}</mat-card>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <button type="submit" 
+                    class="float-right" 
+                    mat-raised-button 
+                    color="primary"
+                    [disabled]="formSignUp.invalid || actividadesError">Registrar <mat-icon>send</mat-icon></button>
+          </div>
+        </div>
+
+    </form>
+  </div>
+</div>
+
+<pre>Estado del formulario <strong>{{ formSignUp.status | json }}</strong></pre>
+<pre>{{formSignUp.value | json}}</pre>
+
+
+  
+

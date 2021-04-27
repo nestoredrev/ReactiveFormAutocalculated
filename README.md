@@ -1,3 +1,6 @@
+# Reactive Form with Angular Material
+Validation and auto recalculeted form maked with Angular Material.
+
 # SignupRotary
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.16.

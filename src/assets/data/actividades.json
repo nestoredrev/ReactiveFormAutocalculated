@@ -1,0 +1,7 @@
+[
+	{ "id": "almuerzo_viernes", "nombre": "Almuerzo Viernes", "precio": 25 },
+	{ "id": "cena_viernes", "nombre": "Cena Viernes", "precio": 65 },
+	{ "id": "almuerzo_sabado", "nombre": "Almuerzo Sábado", "precio": 65 },
+	{ "id": "cena_gala", "nombre": "Cena de gala", "precio": 85 },
+	{ "id": "visita_cartagena", "nombre": "Visita Cartagena", "precio": 80 }
+]
